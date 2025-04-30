@@ -31,7 +31,7 @@
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
           <h5 class="mb-0">User Activities</h5>
-          <span>Total Activities: {{ totalElements$ | async || 0 }}</span>
+          <span>Total Activities: {{ totalElements$ | async }}</span>
         </div>
         <div class="card-body">
           <div *ngIf="error$ | async as error" class="alert alert-danger">{{ error }}</div>

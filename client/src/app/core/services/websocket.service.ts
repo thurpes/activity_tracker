@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import * as SockJS from 'sockjs-client';
-import * as Stomp from 'stompjs';
+import { Client, IMessage, IFrame, Stomp } from '@stomp/stompjs';
 import { TokenStorage } from '../auth/token.storage';
 import { Activity } from '../models/activity.model';
 import { environment } from '../../../environments/environment';
@@ -10,76 +10,71 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class WebSocketService {
-  private stompClient: any;
+  private stompClient: Client | null = null;
   private activitySubject = new Subject<Activity>();
   private connected = false;
-  private subscriptions = new Map();
 
   constructor(private tokenStorage: TokenStorage) { }
 
   connect(): Observable<boolean> {
     const connectedSubject = new Subject<boolean>();
-    const socket = new SockJS(`${environment.apiUrl}/ws`);
-    this.stompClient = Stomp.over(socket);
-    this.stompClient.debug = null; // Disable console logging
 
-    const token = this.tokenStorage.getToken();
-    const headers = {
-      'Authorization': `Bearer ${token}`
+    // Create a new STOMP client
+    this.stompClient = new Client({
+      webSocketFactory: () => new SockJS(`${environment.apiUrl}/ws`),
+      connectHeaders: {
+        'Authorization': `Bearer ${this.tokenStorage.getToken()}`
+      },
+      debug: function(str) {
+        // Disable debug logs in production
+        if (!environment.production) {
+          console.log(str);
+        }
+      },
+      reconnectDelay: 5000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000
+    });
+
+    // Define connect callback
+    this.stompClient.onConnect = (frame: IFrame) => {
+      this.connected = true;
+      this.subscribeToActivities();
+      connectedSubject.next(true);
+      connectedSubject.complete();
     };
 
-    this.stompClient.connect(
-      headers,
-      () => {
-        this.connected = true;
-        this.subscribeToActivities();
-        connectedSubject.next(true);
-        connectedSubject.complete();
-      },
-      (error: any) => {
-        console.error('WebSocket connection error:', error);
-        this.connected = false;
-        connectedSubject.next(false);
-        connectedSubject.complete();
+    // Define error callback
+    this.stompClient.onStompError = (frame: IFrame) => {
+      console.error('STOMP error:', frame.headers['message']);
+      this.connected = false;
+      connectedSubject.next(false);
+      connectedSubject.complete();
+    };
 
-        // Attempt to reconnect after 5 seconds
-        setTimeout(() => {
-          this.connect();
-        }, 5000);
-      }
-    );
+    // Start the connection
+    this.stompClient.activate();
 
     return connectedSubject.asObservable();
   }
 
   disconnect(): void {
     if (this.stompClient && this.connected) {
-      this.unsubscribeFromActivities();
-      this.stompClient.disconnect();
+      this.stompClient.deactivate();
       this.connected = false;
     }
   }
 
   private subscribeToActivities(): void {
-    if (!this.connected) {
+    if (!this.connected || !this.stompClient) {
       console.warn('WebSocket not connected. Cannot subscribe.');
       return;
     }
 
-    const subscription = this.stompClient.subscribe('/topic/activities', (message: any) => {
+    this.stompClient.subscribe('/topic/activities', (message: IMessage) => {
       const activity: Activity = JSON.parse(message.body);
       this.activitySubject.next(activity);
     });
-
-    this.subscriptions.set('/topic/activities', subscription);
-  }
-
-  private unsubscribeFromActivities(): void {
-    if (this.subscriptions.has('/topic/activities')) {
-      const subscription = this.subscriptions.get('/topic/activities');
-      subscription.unsubscribe();
-      this.subscriptions.delete('/topic/activities');
-    }
   }
 
   onActivity(): Observable<Activity> {
