@@ -19,7 +19,7 @@ A Spring Boot application that allows tracking and viewing user activities in re
 - Spring Security
 - Spring Data JPA
 - WebSocket (STOMP)
-- PostgreSQL/H2
+- PostgreSQL
 - Flyway for database migrations
 - Redis for caching
 - JUnit 5 & Mockito for testing
