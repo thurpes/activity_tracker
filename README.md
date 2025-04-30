@@ -14,7 +14,7 @@ A Spring Boot application that allows tracking and viewing user activities in re
 ## Tech Stack
 
 ### Backend
-- Java 17
+- Java 21
 - Spring Boot 3.1.5
 - Spring Security
 - Spring Data JPA
