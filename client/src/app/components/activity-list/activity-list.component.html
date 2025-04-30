@@ -1,0 +1,45 @@
+<div *ngIf="loading" class="text-center p-5">
+  <app-loading-spinner></app-loading-spinner>
+  <p class="mt-2">Loading activities...</p>
+</div>
+
+<div *ngIf="!loading && (!activities || activities.length === 0)" class="text-center p-3">
+  No activities found.
+</div>
+
+<ng-container *ngIf="!loading && activities && activities.length > 0">
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Action</th>
+          <th>Description</th>
+          <th>IP Address</th>
+          <th>Date/Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let activity of activities" [appHighlight]="activity.id">
+          <td>{{ activity.id }}</td>
+          <td>{{ activity.username }}</td>
+          <td>
+            <span class="badge {{ getBadgeClass(activity.action) }}">
+              {{ activity.action }}
+            </span>
+          </td>
+          <td>{{ activity.description }}</td>
+          <td>{{ activity.ipAddress }}</td>
+          <td>{{ formatDateTime(activity.createdAt) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <app-pagination
+    [currentPage]="currentPage"
+    [totalPages]="5"
+    (pageChange)="onPageChange($event)">
+  </app-pagination>
+</ng-container>

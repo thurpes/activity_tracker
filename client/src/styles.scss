@@ -1,0 +1,112 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.card {
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border: none;
+  margin-bottom: 1rem;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  padding: 0.75rem 1.25rem;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0b5ed7;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.badge {
+  padding: 0.35em 0.65em;
+  font-size: 0.75em;
+}
+
+.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Activity highlight animation */
+@keyframes highlightNew {
+  from { background-color: rgba(255, 247, 0, 0.2); }
+  to { background-color: transparent; }
+}
+
+.new-activity {
+  animation: highlightNew 2s ease-out;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .card-body {
+    padding: 0.75rem;
+  }
+}
+
+/* components/login/login.component.scss */
+:host {
+  display: block;
+  padding-top: 2rem;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  padding: 1rem;
+}
+
+/* components/dashboard/dashboard.component.scss */
+:host {
+  display: block;
+}
+
+/* components/activity-list/activity-list.component.scss */
+:host {
+  display: block;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table th {
+  white-space: nowrap;
+}
+
+/* components/activity-search/activity-search.component.scss */
+:host {
+  display: block;
+}
+
+/* shared/components/pagination/pagination.component.scss */
+:host {
+  display: block;
+}
+
+.pagination {
+  margin-bottom: 0;
+}

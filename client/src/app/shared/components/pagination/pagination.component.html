@@ -1,0 +1,23 @@
+<nav *ngIf="totalPages > 1" aria-label="Page navigation">
+  <ul class="pagination justify-content-center mt-4">
+    <li class="page-item" [class.disabled]="currentPage === 0">
+      <a class="page-link" href="javascript:void(0)" (click)="onPageClick(0)">First</a>
+    </li>
+    <li class="page-item" [class.disabled]="currentPage === 0">
+      <a class="page-link" href="javascript:void(0)" (click)="onPageClick(currentPage - 1)">Previous</a>
+    </li>
+
+    <li *ngFor="let page of pages" class="page-item" [class.active]="page === currentPage">
+      <a class="page-link" href="javascript:void(0)" (click)="onPageClick(page)">
+        {{ page + 1 }}
+      </a>
+    </li>
+
+    <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+      <a class="page-link" href="javascript:void(0)" (click)="onPageClick(currentPage + 1)">Next</a>
+    </li>
+    <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+      <a class="page-link" href="javascript:void(0)" (click)="onPageClick(totalPages - 1)">Last</a>
+    </li>
+  </ul>
+</nav>
