@@ -25,11 +25,14 @@ A Spring Boot application that allows tracking and viewing user activities in re
 - JUnit 5 & Mockito for testing
 - JWT for authentication
 
-### Frontend (Optional)
-- React
-- Redux for state management
-- Axios for HTTP requests
+### Frontend
+- Angular 16
+- NgRx for state management
+- HttpClient for HTTP requests
 - SockJS/STOMP for WebSockets
+- RxJS for reactive programming
+- Angular Material (optional) for UI components
+- TypeScript for type-safe development
 
 ## Getting Started
 
@@ -43,7 +46,7 @@ A Spring Boot application that allows tracking and viewing user activities in re
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/activity-tracker.git
+git clone https://github.com/thurpes/activity-tracker.git
 cd activity-tracker
 ```
 
