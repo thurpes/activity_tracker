@@ -1,4 +1,3 @@
-// User.java
 package com.web.activity_tracker.model;
 
 import jakarta.persistence.*;
@@ -48,5 +47,3 @@ public class User {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 }
-
-// Activity.java

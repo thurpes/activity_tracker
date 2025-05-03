@@ -1,3 +1,6 @@
+-- V1__create_users_table.sql
+-- Creates the users table and adds a default admin user
+
 CREATE TABLE users (
     id BIGSERIAL PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -9,22 +12,24 @@ CREATE TABLE users (
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Create indexes for frequently queried columns
+CREATE INDEX idx_users_username ON users(username);
+CREATE INDEX idx_users_email ON users(email);
+
+-- Add table comments
+COMMENT ON TABLE users IS 'Stores user account information';
+
+-- Add column comments
+COMMENT ON COLUMN users.id IS 'Primary key';
+COMMENT ON COLUMN users.username IS 'Unique username for login';
+COMMENT ON COLUMN users.password IS 'Encrypted password (BCrypt)';
+COMMENT ON COLUMN users.email IS 'User email address (unique)';
+COMMENT ON COLUMN users.first_name IS 'User first name';
+COMMENT ON COLUMN users.last_name IS 'User last name';
+COMMENT ON COLUMN users.created_at IS 'Timestamp when user was created';
+COMMENT ON COLUMN users.updated_at IS 'Timestamp of last update to user record';
+
 -- Insert a default admin user (password: admin123)
+-- The password hash is for 'admin123' using BCrypt
 INSERT INTO users (username, password, email, first_name, last_name)
 VALUES ('admin', '$2a$10$7tYpkLKBXGgCVqO5HiDkSu4qnI3oe8XM8WKVnwHimPFAdJ2xm5CHy', 'admin@example.com', 'Admin', 'User');
-
--- V2__create_activities_table.sql
-CREATE TABLE activities (
-    id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT NOT NULL,
-    action VARCHAR(255) NOT NULL,
-    description TEXT,
-    ip_address VARCHAR(50),
-    user_agent VARCHAR(255),
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
--- Create index on frequently accessed columns
-CREATE INDEX idx_activities_user_id ON activities(user_id);
-CREATE INDEX idx_activities_created_at ON activities(created_at);

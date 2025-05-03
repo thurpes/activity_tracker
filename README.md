@@ -228,7 +228,7 @@ ws://localhost:8080/ws
 
 ## Running with Swagger UI
 
-After starting the application, you can access the Swagger UI at `http://localhost:8080/swagger-ui.html`. This provides:
+After starting the application, you can access the Swagger UI at `http://localhost:8080/swagger-ui/index.html`. This provides:
 
 1. **Interactive Documentation**: Test all REST endpoints directly from your browser
 2. **Request/Response Examples**: See example payloads for each endpoint
