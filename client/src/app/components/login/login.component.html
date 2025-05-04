@@ -2,8 +2,8 @@
   <div class="row justify-content-center mt-5">
     <div class="col-md-6 col-lg-4">
       <div class="card">
-        <div class="card-header bg-primary text-white">
-          <h4 class="mb-0">Activity Tracker Login</h4>
+        <div class="card-header bg-dark text-white">
+          <h4 class="mb-0">Login</h4>
         </div>
         <div class="card-body">
           <div *ngIf="error$ | async as error" class="alert alert-danger">
@@ -43,7 +43,7 @@
 
             <button
               type="submit"
-              class="btn btn-primary w-100"
+              class="btn btn-dark w-100"
               [disabled]="loginForm.invalid || (loading$ | async)"
             >
               <span *ngIf="loading$ | async" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
