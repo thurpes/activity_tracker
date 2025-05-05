@@ -32,4 +32,4 @@ COMMENT ON COLUMN users.updated_at IS 'Timestamp of last update to user record';
 -- Insert a default admin user (password: john123)
 -- The password hash is for 'john123' using BCrypt
 INSERT INTO users (username, password, email, first_name, last_name)
-VALUES ('admin', 'john123$2a$10$qQhTEOb88Se962ExsWlIa.IGDXtYvwrWZQ1qx.j.f4HRN1cBmZWRC', 'admin@example.com', 'Admin', 'User');
+VALUES ('admin', '$2a$10$qQhTEOb88Se962ExsWlIa.IGDXtYvwrWZQ1qx.j.f4HRN1cBmZWRC', 'admin@example.com', 'Admin', 'User');
