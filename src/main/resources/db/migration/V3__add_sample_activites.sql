@@ -17,7 +17,7 @@ BEGIN
 
     -- Create a test user
     INSERT INTO users (username, password, email, first_name, last_name)
-    VALUES ('testuser', '$2a$10$7tYpkLKBXGgCVqO5HiDkSu4qnI3oe8XM8WKVnwHimPFAdJ2xm5CHy', 'test@example.com', 'Test', 'User');
+    VALUES ('testuser', 'john123$2a$10$qQhTEOb88Se962ExsWlIa.IGDXtYvwrWZQ1qx.j.f4HRN1cBmZWRC', 'test@example.com', 'Test', 'User');
     
     -- Get the test user's ID
     DECLARE

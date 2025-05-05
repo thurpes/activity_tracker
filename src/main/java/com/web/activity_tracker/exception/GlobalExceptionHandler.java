@@ -82,4 +82,16 @@ public class GlobalExceptionHandler {
         
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+public ResponseEntity<?> handleUserAlreadyExistsException(UserAlreadyExistsException ex, WebRequest request) {
+    Map<String, Object> body = new HashMap<>();
+    body.put("timestamp", LocalDateTime.now());
+    body.put("message", ex.getMessage());
+    body.put("status", HttpStatus.CONFLICT.value());
+    body.put("error", "Registration Failed");
+    body.put("path", request.getDescription(false));
+    
+    return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+}
 }

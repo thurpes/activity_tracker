@@ -60,16 +60,20 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/ws/**").permitAll()
-                // Swagger UI endpoints
-                .requestMatchers("/swagger-ui/**").permitAll()
-                .requestMatchers("/v3/api-docs/**").permitAll()
-                .requestMatchers("/swagger-resources/**").permitAll()
+                .requestMatchers(
+                    "/api/auth/**",
+                    "/ws/**",
+                    "/swagger-ui.html",
+                    "/swagger-ui/index.html",
+                    "/swagger-ui/**",
+                    "/v2/api-docs",
+                    "/v3/api-docs",
+                    "/v3/api-docs/**",
+                    "/swagger-resources",
+                    "/swagger-resources/**",
+                    "/actuator/**"
+                ).permitAll()
                 .anyRequest().authenticated());
-
-        // For H2 Console
-        http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
 
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

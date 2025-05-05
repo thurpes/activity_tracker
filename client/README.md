@@ -112,7 +112,7 @@ The search functionality uses debouncing to optimize API calls:
 ## Additional Notes
 
 - The application communicates with the backend API at http://localhost:8080 
-- Default login credentials: username: "admin", password: "admin123" (if using the provided backend)
+- Default login credentials: username: "admin", password: "john123" (if using the provided backend)
 - WebSocket connection is automatically managed based on authentication state
 
 ## Future Improvements

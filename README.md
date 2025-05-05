@@ -2,6 +2,8 @@
 
 A Spring Boot application that allows tracking and viewing user activities in real-time.
 
+![alt text](image.png)
+
 ## Features
 
 - Real-time activity tracking via WebSockets
@@ -119,7 +121,7 @@ Content-Type: application/json
 
 {
   "username": "admin",
-  "password": "admin123"
+  "password": "john123"
 }
 ```
 
@@ -238,7 +240,7 @@ After starting the application, you can access the Swagger UI at `http://localho
 ### Using Swagger UI for Authentication:
 
 1. Navigate to the `/api/auth/login` endpoint
-2. Click "Try it out" and enter credentials (e.g., username: "admin", password: "admin123")
+2. Click "Try it out" and enter credentials (e.g., username: "admin", password: "john123")
 3. Execute the request to receive a JWT token
 4. Click the "Authorize" button at the top of the page
 5. Enter the token with format: `Bearer {your-token}`
