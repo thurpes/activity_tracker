@@ -55,7 +55,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    @Cacheable(value = "activities")
+    // @Cacheable(value = "activities")
     public Page<ActivityDTO> getAllActivities(Pageable pageable) {
         Page<Activity> activities = activityRepository.findAll(pageable);
         return activities.map(this::mapToDTO);

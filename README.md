@@ -2,7 +2,7 @@
 
 A Spring Boot application that allows tracking and viewing user activities in real-time.
 
-![alt text](image.png)
+![alt text](image-1.png)
 
 ## Features
 
